@@ -3,89 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abonnement</title>
+    <title>Lane AI - Formulaire d'abonnement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        .step {
+            display: none;
         }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .progress-bar {
+            height: 6px;
+            transition: width 0.4s ease;
         }
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        .checkbox-container:hover .checkmark {
+            border-color: #0ea5e9;
         }
-        .thank-you {
-            text-align: center;
-            color: green;
-            font-size: 1.2em;
-            margin-top: 20px;
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #0ea5e9;
+            border-color: #0ea5e9;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .checkbox-container .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Abonnement</h1>
-        <form id="subscriptionForm">
-            <label for="nom">Nom:</label>
-            <input type="text" id="nom" name="nom" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="telephone">Téléphone:</label>
-            <input type="tel" id="telephone" name="telephone" required>
-
-            <label for="offre">Offre:</label>
-            <select id="offre" name="offre">
-                <option value="base">Base</option>
-                <option value="premium">Premium</option>
-                <option value="vip">VIP</option>
-            </select>
-
-            <input type="submit" value="S'abonner">
-        </form>
-        <div id="thankYouMessage" class="thank-you" style="display:none;">
-            Merci pour votre abonnement!
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-primary-600 text-white p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold">Lane AI</h1>
+                    <p class="text-primary-100">Formulaire d'inscription</p>
+                </div>
+                <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center">
+                    <i class="fas fa-robot text-xl"></i>
+                </div>
+            </div>
+            
+            <!-- Progress bar -->
+            <div class="mt-6">
+                <div class="flex justify-between mb-2 text-sm">
+                    <span>Étape <span id="current-step">1</span>/4</span>
+                    <span id="progress-percent">25%</span>
+                </div>
+                <div class="w-full bg-primary-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="progress-bar bg-primary-100 rounded-full" style="width: 25%"></div>
+                </div>
+            </div>
         </div>
+        
+        <!-- Form container -->
+        <form id="laneAIForm" class="p-6">
+            <!-- Step 1 - Personal Info -->
+            <div class="step active" data-step="1">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Informations personnelles</h2>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Prénom*</label>
+                        <input type="text" id="firstName" name="firstName" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                    </div>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Nom*</label>
+                        <input type="text" id="lastName" name="lastName" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email*</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+                    <input type="tel" id="phone" name="phone"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                </div>
+                
+                <div class="flex justify-end">
+                    <button type="button" onclick="nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition">
+                        Suivant <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 2 - Billing Address -->
+            <div class="step" data-step="2">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Adresse de facturation</h2>
+                
+                <div class="mb-4">
+                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Adresse*</label>
+                    <input type="text" id="address" name="address" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">Code postal*</label>
+                        <input type="text" id="postalCode" name="postalCode" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="city" class="block text-sm font-medium text-gray-700 mb-1">Ville*</label>
+                        <input type="text" id="city" name="city" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                    </div>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button type="button" onclick="prevStep()" class="text-primary-600 hover:text-primary-700 px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Précédent
+                    </button>
+                    <button type="button" onclick="nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition">
+                        Suivant <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 3 - Plan Selection -->
+            <div class="step" data-step="3">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Choisissez votre plan</h2>
+                
+                <div class="mb-6">
+                    <label for="plan" class="block text-sm font-medium text-gray-700 mb-1">Plan*</label>
+                    <select id="plan" name="plan" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiAjd2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaGV2cm9uLWRvd24iPjxwYXRoIGQ9Im03IDkgNSA1IDUtNSIvPjwvc3ZnPg==')] bg-no-repeat bg-[center_right_1rem]">
+                        <option value="" disabled selected>Sélectionnez un plan</option>
+                        <option value="basic">Basic - $29/mois</option>
+                        <option value="standard">Standard - $79/mois</option>
+                        <option value="premium">Premium - $149/mois</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Produits*</label>
+                    
+                    <div class="space-y-3">
+                        <label class="checkbox-container flex items-center cursor-pointer">
+                            <input type="checkbox" name="products" value="chatbot" class="opacity-0 absolute h-5 w-5">
+                            <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative"></span>
+                            <span class="text-gray-700">
+                                <span class="font-medium">Chatbot IA</span> - Solution de chat automatisé avec intelligence artificielle
+                            </span>
+                        </label>
+                        
+                        <label class="checkbox-container flex items-center cursor-pointer">
+                            <input type="checkbox" name="products" value="docflow" class="opacity-0 absolute h-5 w-5">
+                            <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative"></span>
+                            <span class="text-gray-700">
+                                <span class="font-medium">DocFlow</span> - Gestion automatisée de documents avec workflow
+                            </span>
+                        </label>
+                        
+                        <label class="checkbox-container flex items-center cursor-pointer">
+                            <input type="checkbox" name="products" value="mailpilot" class="opacity-0 absolute h-5 w-5">
+                            <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative"></span>
+                            <span class="text-gray-700">
+                                <span class="font-medium">MailPilot</span> - Automatisation des campagnes email
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button type="button" onclick="prevStep()" class="text-primary-600 hover:text-primary-700 px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Précédent
+                    </button>
+                    <button type="button" onclick="nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition">
+                        Suivant <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 4 - Confirmation -->
+            <div class="step" data-step="4">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Confirmation</h2>
+                
+                <div class="bg-primary-50 border border-primary-100 rounded-lg p-4 mb-6">
+                    <h3 class="font-medium text-primary-800 mb-2">Récapitulatif de votre commande</h3>
+                    
+                    <div id="summary-content" class="text-sm text-gray-700 space-y-2">
+                        <!-- Summary will be filled by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="checkbox-container flex items-start cursor-pointer">
+                        <input type="checkbox" id="terms" name="terms" class="opacity-0 absolute h-5 w-5">
+                        <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative mt-1"></span>
+                        <span class="text-gray-700">
+                            <span class="font-medium">J'accepte les conditions générales</span> et je comprends que mes données seront traitées conformément à la politique de confidentialité de Lane AI.
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="flex justify-between">
+                    <button type="button" onclick="prevStep()" class="text-primary-600 hover:text-primary-700 px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Précédent
+                    </button>
+                    <button type="submit" id="submit-btn" disabled class="bg-gray-300 text-gray-500 px-6 py-2 rounded-lg font-medium transition flex items-center">
+                        Soumettre <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script>
-        document.getElementById('subscriptionForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            document.getElementById('subscriptionForm').style.display = 'none';
-            document.getElementById('thankYouMessage').style.display = 'block';
+        let currentStep = 1;
+        const totalSteps = 4;
+        let productNames = [];
+        
+        // Update progress bar
+        function updateProgress() {
+            const progressPercent = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('progress-percent').textContent = `${Math.round(progressPercent)}%`;
+            document.getElementById('current-step').textContent = currentStep;
+        }
+        
+        // Navigate to next step
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep++;
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+                
+                // Generate summary on last step
+                if (currentStep === totalSteps) {
+                    generateSummary();
+                }
+            }
+        }
+        
+        // Navigate to previous step
+        function prevStep() {
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            currentStep--;
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            updateProgress();
+        }
+        
+        // Validate current step before proceeding
+        function validateStep(step) {
+            let isValid = true;
+            
+            if (step === 1) {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                
+                if (!firstName || !lastName || !email) {
+                    isValid = false;
+                    alert('Veuillez remplir tous les champs obligatoires (marqués d\'un *)');
+                } else if (!validateEmail(email)) {
+                    isValid = false;
+                    alert('Veuillez entrer une adresse email valide');
+                }
+            } else if (step === 2) {
+                const address = document.getElementById('address').value;
+                const postalCode = document.getElementById('postalCode').value;
+                const city = document.getElementById('city').value;
+                
+                if (!address || !postalCode || !city) {
+                    isValid = false;
+                    alert('Veuillez remplir tous les champs obligatoires (marqués d\'un *)');
+                }
+            } else if (step === 3) {
+                const plan = document.getElementById('plan').value;
+                const products = document.querySelectorAll('input[name="products"]:checked');
+                
+                if (!plan) {
+                    isValid = false;
+                    alert('Veuillez sélectionner un plan');
+                } else if (products.length === 0) {
+                    isValid = false;
+                    alert('Veuillez sélectionner au moins un produit');
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Generate summary for confirmation step
+        function generateSummary() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const postalCode = document.getElementById('postalCode').value;
+            const city = document.getElementById('city').value;
+            const plan = document.getElementById('plan').value;
+            const products = Array.from(document.querySelectorAll('input[name="products"]:checked')).map(el => el.value);
+            
+            let planName = '';
+            switch(plan) {
+                case 'basic': planName = 'Basic - $29/mois'; break;
+                case 'standard': planName = 'Standard - $79/mois'; break;
+                case 'premium': planName = 'Premium - $149/mois'; break;
+            }
+            
+            
+            products.forEach(product => {
+                switch(product) {
+                    case 'chatbot': productNames.push('Chatbot IA'); break;
+                    case 'docflow': productNames.push('DocFlow'); break;
+                    case 'mailpilot': productNames.push('MailPilot'); break;
+                }
+            });
+            
+            const summaryHTML = `
+                <p><strong>Nom complet:</strong> ${firstName} ${lastName}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                ${phone ? `<p><strong>Téléphone:</strong> ${phone}</p>` : ''}
+                <p><strong>Adresse:</strong> ${address}, ${postalCode} ${city}</p>
+                <p class="mt-3"><strong>Plan sélectionné:</strong> ${planName}</p>
+                <p><strong>Produits:</strong> ${productNames.join(', ')}</p>
+            `;
+            
+            document.getElementById('summary-content').innerHTML = summaryHTML;
+        }
+        
+        // Enable/disable submit button based on terms checkbox
+        document.getElementById('terms').addEventListener('change', function() {
+            document.getElementById('submit-btn').disabled = !this.checked;
+            if (this.checked) {
+                document.getElementById('submit-btn').classList.remove('bg-gray-300', 'text-gray-500');
+                document.getElementById('submit-btn').classList.add('bg-primary-600', 'hover:bg-primary-700', 'text-white');
+            } else {
+                document.getElementById('submit-btn').classList.add('bg-gray-300', 'text-gray-500');
+                document.getElementById('submit-btn').classList.remove('bg-primary-600', 'hover:bg-primary-700', 'text-white');
+            }
         });
+        
+        // Form submission
+        document.getElementById('laneAIForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('firstName', document.getElementById('firstName').value);
+            formData.append('lastName', document.getElementById('lastName').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('phone', document.getElementById('phone').value);
+            formData.append('address', document.getElementById('address').value);
+            formData.append('postalCode', document.getElementById('postalCode').value);
+            formData.append('city', document.getElementById('city').value);
+            formData.append('plan', document.getElementById('plan').value);
+            formData.append('products', productNames.join(', '));
+            const summaryHTML = document.getElementById('summary-content').innerHTML;
+            formData.append('terms', document.getElementById('terms').checked);
+            formData.append('summary', summaryHTML);
+            
+            // Log form data for debugging
+            console.log('Form Data:', formData);
+
+            fetch('https://n8n.bambyno.xyz/webhook-test/laneai', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    showPopup('Formulaire soumis avec succès! Merci pour votre inscription.');
+                    window.location.href = "http://127.0.0.1:5500/merci.html";
+                } else {
+                    showPopup('Erreur lors de la soumission du formulaire.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showPopup('Erreur lors de la soumission du formulaire.');
+            });
+            
+            // Reset form and go back to step 1
+            this.reset();
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            currentStep = 1;
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+            updateProgress();
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('submit-btn').classList.add('bg-gray-300', 'text-gray-500');
+            document.getElementById('submit-btn').classList.remove('bg-primary-600', 'hover:bg-primary-700', 'text-white');
+        });
+
+        function showPopup(message) {
+            alert(message); // Replace with a proper popup implementation if needed
+        }
     </script>
 </body>
 </html>

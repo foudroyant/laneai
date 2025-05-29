@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci - Lane AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .checkmark-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .checkmark {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 5;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            margin: 10% auto;
+            box-shadow: 0 0 0 rgba(14, 165, 233, 0.4);
+            animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 0.3s ease-in-out 0.9s both;
+        }
+        @keyframes checkmark-fill {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes checkmark-scale {
+            0%, 100% { transform: none; }
+            50% { transform: scale3d(1.1, 1.1, 1); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-8 text-center">
+            <!-- Animated checkmark -->
+            <div class="checkmark-circle bg-primary-100 mb-6">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle-bg" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" stroke-linecap="round"/>
+                </svg>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Merci pour votre abonnement !</h1>
+            <p class="text-gray-600 mb-6">Votre demande a bien été enregistrée. Notre équipe va traiter votre demande et vous contactera dans les plus brefs délais.</p>
+            
+            <div class="space-y-4 mb-8">
+                <div class="flex items-center justify-center">
+                    <div class="bg-primary-100 p-3 rounded-full mr-3">
+                        <i class="fas fa-envelope text-primary-600"></i>
+                    </div>
+                    <p class="text-gray-700">Un email de confirmation vous a été envoyé</p>
+                </div>
+                <div class="flex items-center justify-center">
+                    <div class="bg-primary-100 p-3 rounded-full mr-3">
+                        <i class="fas fa-clock text-primary-600"></i>
+                    </div>
+                    <p class="text-gray-700">Temps de traitement estimé : 24-48 heures</p>
+                </div>
+            </div>
+            
+            <a href="/" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition">
+                <i class="fas fa-home mr-2"></i> Retour à l'accueil
+            </a>
+            
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <p class="text-sm text-gray-500">Besoin d'aide ? <a href="#" class="text-primary-600 hover:text-primary-700">Contactez notre support</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
