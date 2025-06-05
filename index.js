@@ -189,7 +189,7 @@ let currentStep = 1;
             // Log form data for debugging
             console.log('Form Data:', formData);
 
-            fetch('https://n8n.srv807721.hstgr.cloud/webhook-test/lane-ai', {
+            fetch('https://n8n.srv807721.hstgr.cloud/webhook/lane-ai', {
                 method: 'POST',
                 body: formData
             })
