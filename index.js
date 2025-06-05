@@ -129,9 +129,9 @@ let currentStep = 1;
 
             let planName = '';
             switch(plan) {
-                case 'basic': planName = 'Basic - €29/mois'; break;
+                case 'basic': planName = 'Basic - €49/mois'; break;
                 case 'standard': planName = 'Standard - €79/mois'; break;
-                case 'premium': planName = 'Premium - €149/mois'; break;
+                case 'premium': planName = 'Premium - €89/mois'; break;
             }
             
             
