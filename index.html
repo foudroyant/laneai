@@ -136,18 +136,26 @@
             
             <!-- Step 2 - Billing Address -->
             <div class="step" data-step="2">
-                <h2 class="text-xl font-semibold text-gray-800 mb-6">Adresse de facturation</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-6">Information entreprise</h2>
                 
-                <div class="mb-4">
-                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Adresse*</label>
-                    <input type="text" id="address" name="address" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div >
+                        <label for="entreprise" class="block text-sm font-medium text-gray-700 mb-1">Entreprise*</label>
+                        <input type="text" id="entreprise" name="entreprise" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Adresse*</label>
+                        <input type="text" id="address" name="address" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
+                    </div>
                 </div>
                 
                 <div class="grid md:grid-cols-3 gap-4 mb-6">
                     <div>
-                        <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">Code postal*</label>
-                        <input type="text" id="postalCode" name="postalCode" required
+                        <label for="siret" class="block text-sm font-medium text-gray-700 mb-1">Numero de siret*</label>
+                        <input type="text" id="siret" name="siret" required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
                     </div>
                     <div class="md:col-span-2">
@@ -168,59 +176,97 @@
             </div>
             
             <!-- Step 3 - Plan Selection -->
-            <div class="step" data-step="3">
-                <h2 class="text-xl font-semibold text-gray-800 mb-6">Choisissez votre plan</h2>
-                
-                <div class="mb-6">
-                    <label for="plan" class="block text-sm font-medium text-gray-700 mb-1">Plan*</label>
-                    <select id="plan" name="plan" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiAjd2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaGV2cm9uLWRvd24iPjxwYXRoIGQ9Im03IDkgNSA1IDUtNSIvPjwvc3ZnPg==')] bg-no-repeat bg-[center_right_1rem]">
-                        <option value="" disabled selected>Sélectionnez un plan</option>
-                        <option value="basic">Basic - $29/mois</option>
-                        <option value="standard">Standard - $79/mois</option>
-                        <option value="premium">Premium - $149/mois</option>
-                    </select>
-                </div>
-                
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">Produits*</label>
-                    
-                    <div class="space-y-3">
-                        <label class="checkbox-container flex items-center cursor-pointer">
-                            <input type="checkbox" name="products" value="chatbot" class="opacity-0 absolute h-5 w-5">
-                            <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative"></span>
-                            <span class="text-gray-700">
-                                <span class="font-medium">Chatbot IA</span> - Solution de chat automatisé avec intelligence artificielle
-                            </span>
-                        </label>
-                        
-                        <label class="checkbox-container flex items-center cursor-pointer">
-                            <input type="checkbox" name="products" value="docflow" class="opacity-0 absolute h-5 w-5">
-                            <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative"></span>
-                            <span class="text-gray-700">
-                                <span class="font-medium">DocFlow</span> - Gestion automatisée de documents avec workflow
-                            </span>
-                        </label>
-                        
-                        <label class="checkbox-container flex items-center cursor-pointer">
-                            <input type="checkbox" name="products" value="mailpilot" class="opacity-0 absolute h-5 w-5">
-                            <span class="checkmark border border-gray-300 rounded w-5 h-5 flex-shrink-0 mr-3 relative"></span>
-                            <span class="text-gray-700">
-                                <span class="font-medium">MailPilot</span> - Automatisation des campagnes email
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between">
-                    <button type="button" onclick="prevStep()" class="text-primary-600 hover:text-primary-700 px-4 py-2 rounded-lg font-medium transition flex items-center">
-                        <i class="fas fa-arrow-left mr-2"></i> Précédent
-                    </button>
-                    <button type="button" onclick="nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition">
-                        Suivant <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
-                </div>
+             <div class="step" data-step="3">
+    <h2 class="text-xl font-semibold text-gray-800 mb-6">Choisissez votre plan</h2>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-8" id="plan-selection">
+        <label class="plan-option border rounded-lg p-4 shadow-sm hover:shadow-md cursor-pointer transition-all">
+            <input type="radio" name="plan" value="basic" class="hidden" required>
+            <div class="text-center">
+                <p class="font-semibold text-lg text-primary-700">Basique</p>
+                <p class="text-sm text-gray-600">49€/mois</p>
+                <p class="text-xs text-gray-500 mt-1">Support email, réponse sous 72h</p>
             </div>
+        </label>
+        <label class="plan-option border rounded-lg p-4 shadow-sm hover:shadow-md cursor-pointer transition-all">
+            <input type="radio" name="plan" value="standard" class="hidden">
+            <div class="text-center">
+                <p class="font-semibold text-lg text-primary-700">Standard</p>
+                <p class="text-sm text-gray-600">70€/mois</p>
+                <p class="text-xs text-gray-500 mt-1">Support mail + WhatsApp, 1 MAJ/mois</p>
+            </div>
+        </label>
+        <label class="plan-option border rounded-lg p-4 shadow-sm hover:shadow-md cursor-pointer transition-all">
+            <input type="radio" name="plan" value="premium" class="hidden">
+            <div class="text-center">
+                <p class="font-semibold text-lg text-primary-700">Premium</p>
+                <p class="text-sm text-gray-600">89€/mois</p>
+                <p class="text-xs text-gray-500 mt-1">Support prioritaire, MAJ illimitées</p>
+            </div>
+        </label>
+    </div>
+
+    <h3 class="text-lg font-medium text-gray-800 mb-4">Sélectionnez vos produits</h3>
+    <div class="grid md:grid-cols-2 gap-4">
+        <label class="checkbox-container flex items-start border rounded-lg p-4 hover:shadow-sm cursor-pointer">
+            <input type="checkbox" name="products" value="ChatbotIA 2200€" class="hidden">
+            <div class="checkmark w-5 h-5 border rounded mt-1 mr-3"></div>
+            <div>
+                <p class="font-semibold">ChatbotIA</p>
+                <p class="text-sm text-gray-600">Agent IA 24/7 pour canal de vente (2200€ TTC)</p>
+            </div>
+        </label>
+        <label class="checkbox-container flex items-start border rounded-lg p-4 hover:shadow-sm cursor-pointer">
+            <input type="checkbox" name="products" value="DocFlow 1600€" class="hidden">
+            <div class="checkmark w-5 h-5 border rounded mt-1 mr-3"></div>
+            <div>
+                <p class="font-semibold">DocFlow</p>
+                <p class="text-sm text-gray-600">Récupération & validation des papiers élèves (1600€ TTC)</p>
+            </div>
+        </label>
+        <label class="checkbox-container flex items-start border rounded-lg p-4 hover:shadow-sm cursor-pointer">
+            <input type="checkbox" name="products" value="MailPilot 1100€" class="hidden">
+            <div class="checkmark w-5 h-5 border rounded mt-1 mr-3"></div>
+            <div>
+                <p class="font-semibold">MailPilot</p>
+                <p class="text-sm text-gray-600">Agent IA de réponses email intelligentes (1100€ TTC)</p>
+            </div>
+        </label>
+        <label class="checkbox-container flex items-start border rounded-lg p-4 hover:shadow-sm cursor-pointer">
+            <input type="checkbox" name="products" value="PlanFlex 1150€" class="hidden">
+            <div class="checkmark w-5 h-5 border rounded mt-1 mr-3"></div>
+            <div>
+                <p class="font-semibold">PlanFlex</p>
+                <p class="text-sm text-gray-600">Optimisation des créneaux de conduite (1150€ TTC)</p>
+            </div>
+        </label>
+        <label class="checkbox-container flex items-start border rounded-lg p-4 hover:shadow-sm cursor-pointer">
+            <input type="checkbox" name="products" value="PayBack 1400€" class="hidden">
+            <div class="checkmark w-5 h-5 border rounded mt-1 mr-3"></div>
+            <div>
+                <p class="font-semibold">PayBack</p>
+                <p class="text-sm text-gray-600">Relance automatique des paiements (1400€ TTC)</p>
+            </div>
+        </label>
+        <label class="checkbox-container flex items-start border rounded-lg p-4 hover:shadow-sm cursor-pointer">
+            <input type="checkbox" name="products" value="CallIA 3000€" class="hidden">
+            <div class="checkmark w-5 h-5 border rounded mt-1 mr-3"></div>
+            <div>
+                <p class="font-semibold">CallIA</p>
+                <p class="text-sm text-gray-600">Agent IA pour appels entrants (3000€ TTC)</p>
+            </div>
+        </label>
+    </div>
+
+    <div class="flex justify-between mt-6">
+        <button type="button" onclick="prevStep()" class="text-primary-600 hover:text-primary-700 px-4 py-2 rounded-lg font-medium transition flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Précédent
+        </button>
+        <button type="button" onclick="nextStep()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition">
+            Suivant <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+</div>
             
             <!-- Step 4 - Confirmation -->
             <div class="step" data-step="4">
@@ -256,193 +302,6 @@
         </form>
     </div>
 
-    <script>
-        let currentStep = 1;
-        const totalSteps = 4;
-        let productNames = [];
-        
-        // Update progress bar
-        function updateProgress() {
-            const progressPercent = (currentStep / totalSteps) * 100;
-            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
-            document.getElementById('progress-percent').textContent = `${Math.round(progressPercent)}%`;
-            document.getElementById('current-step').textContent = currentStep;
-        }
-        
-        // Navigate to next step
-        function nextStep() {
-            if (validateStep(currentStep)) {
-                document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
-                currentStep++;
-                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
-                updateProgress();
-                
-                // Generate summary on last step
-                if (currentStep === totalSteps) {
-                    generateSummary();
-                }
-            }
-        }
-        
-        // Navigate to previous step
-        function prevStep() {
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
-            currentStep--;
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
-            updateProgress();
-        }
-        
-        // Validate current step before proceeding
-        function validateStep(step) {
-            let isValid = true;
-            
-            if (step === 1) {
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
-                const email = document.getElementById('email').value;
-                
-                if (!firstName || !lastName || !email) {
-                    isValid = false;
-                    alert('Veuillez remplir tous les champs obligatoires (marqués d\'un *)');
-                } else if (!validateEmail(email)) {
-                    isValid = false;
-                    alert('Veuillez entrer une adresse email valide');
-                }
-            } else if (step === 2) {
-                const address = document.getElementById('address').value;
-                const postalCode = document.getElementById('postalCode').value;
-                const city = document.getElementById('city').value;
-                
-                if (!address || !postalCode || !city) {
-                    isValid = false;
-                    alert('Veuillez remplir tous les champs obligatoires (marqués d\'un *)');
-                }
-            } else if (step === 3) {
-                const plan = document.getElementById('plan').value;
-                const products = document.querySelectorAll('input[name="products"]:checked');
-                
-                if (!plan) {
-                    isValid = false;
-                    alert('Veuillez sélectionner un plan');
-                } else if (products.length === 0) {
-                    isValid = false;
-                    alert('Veuillez sélectionner au moins un produit');
-                }
-            }
-            
-            return isValid;
-        }
-        
-        // Email validation
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-        
-        // Generate summary for confirmation step
-        function generateSummary() {
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            const postalCode = document.getElementById('postalCode').value;
-            const city = document.getElementById('city').value;
-            const plan = document.getElementById('plan').value;
-            const products = Array.from(document.querySelectorAll('input[name="products"]:checked')).map(el => el.value);
-            
-            let planName = '';
-            switch(plan) {
-                case 'basic': planName = 'Basic - $29/mois'; break;
-                case 'standard': planName = 'Standard - $79/mois'; break;
-                case 'premium': planName = 'Premium - $149/mois'; break;
-            }
-            
-            
-            products.forEach(product => {
-                switch(product) {
-                    case 'chatbot': productNames.push('Chatbot IA'); break;
-                    case 'docflow': productNames.push('DocFlow'); break;
-                    case 'mailpilot': productNames.push('MailPilot'); break;
-                }
-            });
-            
-            const summaryHTML = `
-                <p><strong>Nom complet:</strong> ${firstName} ${lastName}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                ${phone ? `<p><strong>Téléphone:</strong> ${phone}</p>` : ''}
-                <p><strong>Adresse:</strong> ${address}, ${postalCode} ${city}</p>
-                <p class="mt-3"><strong>Plan sélectionné:</strong> ${planName}</p>
-                <p><strong>Produits:</strong> ${productNames.join(', ')}</p>
-            `;
-            
-            document.getElementById('summary-content').innerHTML = summaryHTML;
-        }
-        
-        // Enable/disable submit button based on terms checkbox
-        document.getElementById('terms').addEventListener('change', function() {
-            document.getElementById('submit-btn').disabled = !this.checked;
-            if (this.checked) {
-                document.getElementById('submit-btn').classList.remove('bg-gray-300', 'text-gray-500');
-                document.getElementById('submit-btn').classList.add('bg-primary-600', 'hover:bg-primary-700', 'text-white');
-            } else {
-                document.getElementById('submit-btn').classList.add('bg-gray-300', 'text-gray-500');
-                document.getElementById('submit-btn').classList.remove('bg-primary-600', 'hover:bg-primary-700', 'text-white');
-            }
-        });
-        
-        // Form submission
-        document.getElementById('laneAIForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData();
-            formData.append('firstName', document.getElementById('firstName').value);
-            formData.append('lastName', document.getElementById('lastName').value);
-            formData.append('email', document.getElementById('email').value);
-            formData.append('phone', document.getElementById('phone').value);
-            formData.append('address', document.getElementById('address').value);
-            formData.append('postalCode', document.getElementById('postalCode').value);
-            formData.append('city', document.getElementById('city').value);
-            formData.append('plan', document.getElementById('plan').value);
-            formData.append('products', productNames.join(', '));
-            const summaryHTML = document.getElementById('summary-content').innerHTML;
-            formData.append('terms', document.getElementById('terms').checked);
-            formData.append('summary', summaryHTML);
-            
-            // Log form data for debugging
-            console.log('Form Data:', formData);
-
-            fetch('https://n8n.bambyno.xyz/webhook-test/laneai', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    showPopup('Formulaire soumis avec succès! Merci pour votre inscription.');
-                    window.location.href = "http://127.0.0.1:5500/merci.html";
-                } else {
-                    showPopup('Erreur lors de la soumission du formulaire.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showPopup('Erreur lors de la soumission du formulaire.');
-            });
-            
-            // Reset form and go back to step 1
-            this.reset();
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
-            currentStep = 1;
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
-            updateProgress();
-            document.getElementById('submit-btn').disabled = true;
-            document.getElementById('submit-btn').classList.add('bg-gray-300', 'text-gray-500');
-            document.getElementById('submit-btn').classList.remove('bg-primary-600', 'hover:bg-primary-700', 'text-white');
-        });
-
-        function showPopup(message) {
-            alert(message); // Replace with a proper popup implementation if needed
-        }
-    </script>
+    <script src="./index.js"></script>
 </body>
 </html>
